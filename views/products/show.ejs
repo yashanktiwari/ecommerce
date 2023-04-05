@@ -1,0 +1,104 @@
+<%- layout('./layout/boilerplate.ejs') -%>
+<!-- We have the product here -->
+
+<link rel="stylesheet" href="../css/show.css">
+
+<% if(updateMessage && updateMessage.length) { %>
+  <div class="alert alert-success" role="alert">
+    <%= updateMessage %>
+  </div>
+<% } %>
+
+<div class="content">
+  <div class="product-img-cont">
+    <img class="product-img" src="<%= product.img %>" alt="">
+  </div>
+  <div class="profuct-info">
+    <h1><%= product.name %></h1>
+    <p><%= product.desc %></p>
+    <h4>Price: $<%= product.price %></h4>
+    <div class="buttons">
+      <a href="/products/<%= product._id %>/edit" class="btn btn-primary">Update</a>
+
+      <form method="post" action="/products/<%= product._id %>?_method=DELETE">
+        <button class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+
+    <h1 class="review-heading">Reviews</h1>
+
+    <div class="reviews-cont">  
+
+      <% if(product.review.length == 0) { %>
+        <div class="no-review-cont">
+          <span>Currently no reviews</span> &nbsp;&nbsp;
+        </div>
+      <% } else { %>
+        <% for(let i=0; i<product.review.length; i++) { %>
+
+          <div class="sample-review">
+            <span><%= product.review[i].rating %>⭐:</span> &nbsp;&nbsp;
+            <span><%= product.review[i].review %></span>
+          </div>
+        <% } %>
+      <% } %>
+
+      
+      
+    </div>
+  </div>
+  
+  <!-- <div class="add-review-btn-cont">
+    <button class="btn btn-primary add-review">Add Review</button>
+  </div> -->
+
+  <!-- Button trigger modal -->
+  <div class="add-review-btn-cont">
+    <button type="button" class="add-review btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Review
+    </button>
+  </div>
+
+  
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add a new review</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Modal Body -->
+        <form method="post" action="/products/<%= product.id %>/review" class="review-form">
+          <div class="rating-buttons">
+            <button type="button" class="btn btn-secondary" value="1">1</button>
+            <button type="button" class="btn btn-secondary" value="2">2</button>
+            <button type="button" class="btn btn-secondary" value="3">3</button>
+            <button type="button" class="btn btn-secondary" value="4">4</button>
+            <button type="button" class="btn btn-secondary" value="5">5</button>
+          </div>
+        
+          <input class="num-rating" type="text" name="rating" id="rating">
+          <textarea class="form-control review-textarea" name="review" id="review" placeholder="Enter your review here..."></textarea>
+      
+          <button class="btn btn-primary post-btn">Post Review</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+
+<script src="../javascript/show.js"></script>

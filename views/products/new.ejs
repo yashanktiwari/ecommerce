@@ -1,0 +1,35 @@
+<%- layout('./layout/boilerplate.ejs') -%>
+
+<link rel="stylesheet" href="../css/new.css">
+<form action="/products" method="post" class="new-product-form">
+  <div class="mb-3">
+    <label for="img" class="form-label">Image</label>
+    <input type="text" name="img" class="form-control" id="img">
+  </div>
+  
+  <!-- Image input with add icon -->
+  <!-- <label for="img" class="form-label">Image</label>
+  <div class="input-group mb-3">
+      <input type="text" id="img" name="img" class="form-control">
+      <span class="input-group-text">+</span>
+    </div>   -->
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Product Name</label>
+      <input type="text" name="name" class="form-control" id="name">
+    </div>
+
+    <div class="mb-3">
+      <label for="desc" class="form-label">Product Description</label>
+      <br>
+      <textarea name="desc" id="desc" class="new-pdt-desc"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" name="price" class="form-control" id="price">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script src="../javascript/new.js"></script>
