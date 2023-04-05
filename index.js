@@ -19,7 +19,10 @@ const sessionflash = {
   secret: 'this is a flash session',
   resave: false,
   saveUninitialized: true,
-  cookie: {}
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 7*24*60*60*1000
+  }
 };
 
 const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/shopping-app";
