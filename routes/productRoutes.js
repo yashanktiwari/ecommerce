@@ -1,5 +1,6 @@
 const express = require('express');
 const Product = require('../models/Product');
+const { isLoggedIn } = require('../middleware');
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.post('/products', async(req, res) => {
 });
 
 // show a single product
-router.get('/products/:productid', async (req, res) => {
+router.get('/products/:productid', isLoggedIn, async (req, res) => {
   const {productid} = req.params;
   const product = await Product.findById(productid).populate('review');
   const updateMessage = req.flash('update');
@@ -31,7 +32,7 @@ router.get('/products/:productid', async (req, res) => {
 });
 
 // edit a single product
-router.get('/products/:productid/edit', async (req, res) => {
+router.get('/products/:productid/edit', isLoggedIn, async (req, res) => {
   const {productid} = req.params;
   const product = await Product.findById(productid);
   res.render('./products/edit', {product});
