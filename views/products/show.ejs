@@ -3,11 +3,6 @@
 
 <link rel="stylesheet" href="../css/show.css">
 
-<!--  if(updateMessage && updateMessage.length) { 
-  <div class="alert alert-success" role="alert">
-    = updateMessage
-  </div>
- }  -->
 
 <div class="content">
   <div class="product-img-cont">
@@ -17,14 +12,25 @@
     <h1><%= product.name %></h1>
     <p><%= product.desc %></p>
     <h4>Price: $<%= product.price %></h4>
-    <div class="buttons">
-      <a href="/products/<%= product._id %>/edit" class="btn btn-primary">Update</a>
 
-      <form method="post" action="/products/<%= product._id %>?_method=DELETE">
-        <button class="btn btn-danger">Delete</button>
-      </form>
-    </div>
-
+    <% if(currentUser) { %>
+      <% if(currentUser.role === "retailer") { %>
+        <div class="buttons">
+          <a href="/products/<%= product._id %>/edit" class="btn btn-primary">Update</a>
+    
+          <form method="post" action="/products/<%= product._id %>?_method=DELETE">
+            <button class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      <% } %>
+    <% } %>
+    
+        <div class="buttons">
+          <form action="/products/<%= product._id %>?user=<%= currentUser._id %>" method="post">
+            <button class="btn btn-primary" type="submit">Add To Cart</button>
+          </form>
+          
+        </div>
     <h1 class="review-heading">Reviews</h1>
 
     <div class="reviews-cont">  

@@ -1,0 +1,50 @@
+<%- layout('./layout/boilerplate.ejs') -%>
+
+<div class="main" style="display: flex;">
+
+
+<div style="margin-top: 1rem; width: 45rem; margin-bottom: 1rem;">
+  <h1>Cart</h1>
+  <% arr.map((cartItem) => { %>
+    <div style="display: flex; margin-top: 1rem; border: 2px solid gray; padding: 1rem;">
+      <img src=<%= cartItem.productImg %> alt="Product_Image" style="height: 10rem; width: 15rem">
+      <div style="display: flex; flex-direction: column; margin-left: 2rem;">
+        <span style="font-weight: 600; font-size: 1.85rem;"><%= cartItem.productName %></span>
+        <div>
+          <span style="font-weight: 500; font-size: 1.25rem;">Price:</span>
+          <span style="font-size: 1rem;"><%= cartItem.price %></span>
+        </div>
+        <div>
+          <span style="font-weight: 500; font-size: 1.25rem;">Quantity:</span>
+          <span style="font-size: 1rem;"><%= cartItem.quantity %></span>
+        </div>
+        <div>
+          <form action="/cart/<%= cartItem.productName %>?userid=<%= currentUser._id %>" method="post">
+            <button type="submit" class="btn btn-danger">Remove</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<div class="totalPrice" style="margin-top: 4.5rem; margin-left: 10rem; border: 1px solid gray; padding: 1rem; height: fit-content; border-radius: 1rem;">
+  <% arr.map((cartItem) => { %>
+    <div style="border: 1px solid lightgray; border-radius: 0.5rem; padding: 0.5rem;">
+      <span style="font-weight: bold;"><%= cartItem.productName %>:</span>
+      <span>₹ <%= cartItem.price %> x <%= cartItem.quantity %></span>
+    </div>
+  <% }); %>
+
+  <div style="border: 1px solid lightgray; border-radius: 0.5rem; padding: 0.5rem;">
+    <% let totalAmt = 0; %>
+    <% arr.map((cartItem) => { %>
+      <% totalAmt = totalAmt + (cartItem.price * cartItem.quantity); %>
+    <% }) %>
+    <span style="font-weight: bold;">Total Amount: ₹ <%= totalAmt %></span>
+
+    <button ></button>
+  </div>
+</div>
+
+</div>
