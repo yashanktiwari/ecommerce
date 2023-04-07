@@ -15,13 +15,15 @@
 
     <% if(currentUser) { %>
       <% if(currentUser.role === "retailer") { %>
-        <div class="buttons">
-          <a href="/products/<%= product._id %>/edit" class="btn btn-primary">Update</a>
-    
-          <form method="post" action="/products/<%= product._id %>?_method=DELETE">
-            <button class="btn btn-danger">Delete</button>
-          </form>
-        </div>
+        <% if(currentUser._id.equals(product.userid)) { %>
+          <div class="buttons">
+            <a href="/products/<%= product._id %>/edit" class="btn btn-primary">Update</a>
+      
+            <form method="post" action="/products/<%= product._id %>?_method=DELETE">
+              <button class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        <% } %>
       <% } %>
     <% } %>
     

@@ -13,13 +13,14 @@ router.get("/products", async (req, res) => {
   res.render("./products/product", { products, message });
 });
 
-router.get("/products/new", (req, res) => {
+router.get("/products/new", isLoggedIn, (req, res) => {
   res.render("./products/new.ejs");
 });
 
 router.post("/products", async (req, res) => {
+  const userid = req.query.userid;
   const { name, img, desc, price } = req.body;
-  await Product.create({ name, img, desc, price });
+  await Product.create({ name, img, desc, price, userid });
   req.flash("success", "Your product has been created successfully");
   res.redirect("/products");
 });
